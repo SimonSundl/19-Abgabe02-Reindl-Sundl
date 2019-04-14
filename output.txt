@@ -1,2 +1,1 @@
-Error: Could not find or load main class at.fhj.itm.demo.Main
-Caused by: java.lang.ClassNotFoundException: at.fhj.itm.demo.Main
+Hello Simon!

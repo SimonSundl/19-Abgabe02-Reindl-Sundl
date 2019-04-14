@@ -1,4 +1,6 @@
 <project name="SimpleAutomaticBuildProject" default="jar">
+<property file = "build.properties"/>
+
     <target name="clean">
         <delete dir="build"/>
     </target>
@@ -12,14 +14,15 @@
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/SimpleAutomaticBuildProject-1.0-SNAPSHOT.jar" basedir="build/classes">
           <manifest>
-            <attribute name="Main-Class" value="at.fhj.itm.demo.Main"/>
+            <attribute name="Main-Class" value="at.fhj.iit.Main"/>
           </manifest>
         </jar>
       </target>
 
-      <target name="run" depends="jar">
-        <echo message="Atempting to run!" />
-        <java jar="build/jar/SimpleAutomaticBuildProject-1.0-SNAPSHOT.jar" output="output.txt" fork="true" />
+      <target name="run" depends="jar"> 
+        <java jar="build/jar/SimpleAutomaticBuildProject-1.0-SNAPSHOT.jar" output="output.txt" fork="true" >
+        <arg value="${arg0}"/>
+        </java>
       </target>
 
   </project>
