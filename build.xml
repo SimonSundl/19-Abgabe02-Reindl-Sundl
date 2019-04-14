@@ -1,21 +1,25 @@
-<project name="SimpleAutomaticBuildProject">
+<project name="SimpleAutomaticBuildProject" default="jar">
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
 
-  <!-- first target which creates directories for later usage -->
-  <!-- read more about: https://ant.apache.org/manual/targets.html -->
-  <target name="init">
-    <mkdir dir="build-ant"/>
-  </target>  
-  
-  <!-- removes same directories which created by init target -->
-  <target name="clean">
-	<!-- read more about ant tasks in general: https://ant.apache.org/manual/tasksoverview.html -->
-	<!-- read more about delete task in detail: https://ant.apache.org/manual/Tasks/delete.html -->
-  	<delete dir="build-ant"/>
-  </target>
-  
-  <!-- compiles defined java src files and store them into destination directory -->
-  <target name="compile" depends="init">
-    <javac srcdir="src" destdir="build-ant" includeantruntime="false"/>
-  </target>  
-  
-</project>
+    <target name="compile" depends="clean">
+      <mkdir dir="build/classes"/>
+      <javac srcdir="SimpleAutomaticBuildProject" destdir="build/classes" includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/SimpleAutomaticBuildProject-1.0-SNAPSHOT.jar" basedir="build/classes">
+          <manifest>
+            <attribute name="Main-Class" value="at.fhj.itm.demo.Main"/>
+          </manifest>
+        </jar>
+      </target>
+
+      <target name="run" depends="jar">
+        <echo message="Atempting to run!" />
+        <java jar="build/jar/SimpleAutomaticBuildProject-1.0-SNAPSHOT.jar" output="output.txt" fork="true" />
+      </target>
+
+  </project>
